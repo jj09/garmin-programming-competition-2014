@@ -1,7 +1,10 @@
 eclipse.preferences.version=1
+org.eclipse.jdt.core.classpathVariable.ECLIPSE_HOME=/Users/jj/Sireum/apps/eclipse/classic
 org.eclipse.jdt.core.classpathVariable.JRE_LIB=/Users/jj/Sireum/apps/platform/java/jre/lib/rt.jar
 org.eclipse.jdt.core.classpathVariable.JRE_SRC=/Users/jj/Sireum/apps/platform/java/src.zip
 org.eclipse.jdt.core.classpathVariable.JRE_SRCROOT=src
+org.eclipse.jdt.core.classpathVariable.JUNIT_HOME=/Users/jj/Sireum/apps/eclipse/classic/plugins/org.junit_4.11.0.v201303080030/
+org.eclipse.jdt.core.classpathVariable.JUNIT_SRC_HOME=/Users/jj/Sireum/apps/eclipse/classic/plugins/org.junit.source_4.11.0.v201303080030.jar
 org.eclipse.jdt.core.codeComplete.visibilityCheck=enabled
 org.eclipse.jdt.core.compiler.codegen.inlineJsrBytecode=enabled
 org.eclipse.jdt.core.compiler.codegen.targetPlatform=1.7

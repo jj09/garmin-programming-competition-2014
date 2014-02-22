@@ -1,0 +1,54 @@
+import java.io.*;
+import java.util.*;
+
+
+public class Main {
+	
+	class DataItem {
+		public int x;
+		public int y;
+		public int shift;
+		public String line;
+		
+		public int xNext;
+		public int yNext;
+	}
+	
+	public static void main(String[] args) throws IOException {
+				
+		LinkedList<DataItem> data = new LinkedList<DataItem>();
+		
+		// read file
+		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+		int firstX = Integer.parseInt(br.readLine());
+		int firstY = Integer.parseInt(br.readLine());
+		String temp;
+		temp = br.readLine();
+		int shift = Integer.parseInt(br.readLine()) % 26;
+		br.close();
+		
+		// shift
+		StringBuilder line = new StringBuilder(temp);
+		for(int i=0; i<line.length(); ++i) {
+			char c = line.charAt(i);
+			int indexShift = -1;
+			if (c >= 'a' && c <= 'z' ) {
+				indexShift = 'a';				
+			}
+			else if (c >= 'A' && c <= 'Z') {
+				indexShift = 'A';
+			}
+			
+			if(indexShift>0) {
+				int effectiveShift = (c + shift) - indexShift;
+				if (effectiveShift<0){
+					effectiveShift = (c + shift + 26) - indexShift;
+				}
+				int newChar = (effectiveShift % 26) + indexShift;
+				line.setCharAt(i, (char) (newChar));
+			}
+		}
+		
+		System.out.println(line);
+	}
+}
