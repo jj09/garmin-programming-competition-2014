@@ -1,0 +1,41 @@
+import java.io.*;
+
+
+public class Main {
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+				
+		// read file
+		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+		String temp;
+		temp = br.readLine();
+		int shift = Integer.parseInt(br.readLine());
+		br.close();
+		
+		// shift
+		StringBuilder line = new StringBuilder(temp);
+		for(int i=0; i<line.length(); ++i) {
+			char c = line.charAt(i);
+			int indexShift = -1;
+			if (c >= 'a' && c <= 'z' ) {
+				indexShift = 'a';				
+			}
+			else if (c >= 'A' && c <= 'Z') {
+				indexShift = 'A';
+			}
+			
+			if(indexShift>0) {
+				int effectiveShift = (c + shift) - indexShift;
+				if (effectiveShift<0){
+					effectiveShift = (c + shift + 26) - indexShift;
+				}
+				int newChar = (effectiveShift % 26) + indexShift;
+				line.setCharAt(i, (char) (newChar));
+			}
+		}
+		
+		System.out.println(line);
+	}
+}

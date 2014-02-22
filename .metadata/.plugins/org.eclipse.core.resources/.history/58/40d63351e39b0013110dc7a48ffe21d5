@@ -1,0 +1,24 @@
+import java.io.*;
+
+
+public class Main {
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+		System.out.println(args[0]);
+		
+		// read file
+		BufferedReader br = new BufferedReader(new FileReader(args[0]));
+		String line;
+		while ((line = br.readLine()) != null) {
+			shift = Integer.parseInt(br.readLine());
+		}
+		br.close();
+		
+		
+		char c = 'a';
+		c += 4;
+		System.out.println(c);
+	}
+}

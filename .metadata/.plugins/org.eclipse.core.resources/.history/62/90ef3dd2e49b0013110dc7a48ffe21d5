@@ -1,0 +1,26 @@
+import java.io.*;
+
+
+public class Main {
+	
+	
+	
+	public static void main(String[] args) throws IOException {
+				
+		// read file
+		BufferedReader br = new BufferedReader(new FileReader(args[0]));
+		String temp;
+		temp = br.readLine();
+		int shift = Integer.parseInt(br.readLine());
+		br.close();
+		
+		// shift
+		StringBuilder line = new StringBuilder(temp);
+		for(int i=0; i<line.length(); ++i) {
+			int newChar = (((line.charAt(i) + shift) - 97)%26) + 97;			
+			line.setCharAt(i, (char) (newChar));
+		}
+		
+		System.out.println(line);
+	}
+}
