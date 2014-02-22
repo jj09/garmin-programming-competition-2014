@@ -1,0 +1,6 @@
+
+public class HelloGarmin {
+	static void main(String[] args) {
+		System.out.println("Hello, Garmin Programming Competition 2014");
+	}
+}
