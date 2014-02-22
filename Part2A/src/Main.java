@@ -5,23 +5,11 @@ import java.util.*;
 public class Main {
 	
 	public static class DataItem {
-		public int x;
-		public int y;
-		public int shift;
 		public String line;
 		
 		public int xNext;
 		public int yNext;
 		public int shiftNext;
-	}
-	
-	public static int findDataItem(LinkedList<DataItem> data, int x, int y) {
-		for(int i=0; i<data.size(); ++i) {
-			if (data.get(i).x == x && data.get(i).y == y) {
-				return i;
-			}
-		}
-		return -1;
 	}
 	
 	public static String shift(String input, int shift) {
@@ -51,68 +39,59 @@ public class Main {
 	
 	public static void main(String[] args) throws IOException {
 				
-		LinkedList<DataItem> data = new LinkedList<DataItem>();
+		//LinkedList<DataItem> data = new LinkedList<DataItem>();
+		
+		DataItem[][] data = new DataItem[255][255];
 		
 		// read file
 		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
 		int firstX = Integer.parseInt(br.readLine());
 		int firstY = Integer.parseInt(br.readLine());
-		int firstShift = Integer.parseInt(br.readLine());
+		int firstShift = Integer.parseInt(br.readLine()) % 26;
 		
 		String temp;
 		while((temp = br.readLine()) != null) {
-			DataItem di;
 			String[] array = temp.split(",");
+			
 			int x = Integer.parseInt(array[0]);
 			int y = Integer.parseInt(array[1]);
 			
-			int ind = findDataItem(data, x, y);
-			if(ind == -1) {
-				di = new DataItem();
-				di.x = x;
-				di.y = y;				
-				data.add(di);
-			} else {
-				di = data.get(ind);
-			}			
-			
-			di.line = array[2];
-			di.xNext = Integer.parseInt(array[3]);
-			di.yNext = Integer.parseInt(array[4]);
-			
-			int shiftNext = Integer.parseInt(array[5]) % 26;
-			di.shiftNext = shiftNext;
-			
-			ind = findDataItem(data, di.xNext, di.yNext);
-			if(ind>=0) {
-				data.get(ind).shift = shiftNext;
-			} else {
-				DataItem nextDataItem = new DataItem();
-				nextDataItem.x = di.xNext;
-				nextDataItem.y = di.yNext;
-				nextDataItem.shift = shiftNext;
-				data.add(nextDataItem);
+			if(data[x][y] == null) {
+				data[x][y] = new DataItem();
 			}
+			
+			data[x][y].line = array[2];
+			data[x][y].xNext = Integer.parseInt(array[3]);
+			data[x][y].yNext = Integer.parseInt(array[4]);			
+			data[x][y].shiftNext = Integer.parseInt(array[5]) % 26;
 		}
 		
 		br.close();
 		
+//		for(int i=0; i<255; ++i) {
+//			for(int j=0; j<255; ++j) {
+//				if(data[i][j]!=null) {
+//					System.out.println(i + "," 
+//				+ j + "," 
+//				+ data[i][j].line + "," 
+//				+ data[i][j].xNext+ ","
+//				+ data[i][j].yNext+ ","
+//				+ data[i][j].shiftNext);
+//				}
+//			}
+//		}
+		
 		// traverse
 		StringBuilder result = new StringBuilder();
-		DataItem current = data.get(findDataItem(data, firstX, firstY));
-		current.shift = firstShift;
+		DataItem current = data[firstX][firstY];
+		int currentShift = firstShift;
 		
 		//int nextShift = -1;
-		while(current.shift!=0) {
-			int nextShift = current.shiftNext;
-			result.append(shift(current.line, current.shift));
-			int nextInd = findDataItem(data, current.xNext, current.yNext);
-			current = data.get(nextInd);
-			current.shift = nextShift;
-			//nextShift = current.shift;
-			//System.out.println(nextShift);
+		while(currentShift!=0) {
+			result.append(shift(current.line, currentShift));
+			currentShift = current.shiftNext;
+			current = data[current.xNext][current.yNext];
 		}
-		
 		
 		System.out.println(result);
 	}
