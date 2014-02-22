@@ -118,7 +118,7 @@ public class Main {
 		// traverse
 		LinkedList<Result> results = new LinkedList<Result>();
 		
-		DiscoverPath("", data[firstX][firstY], results, firstShift, 0);
+		DiscoverPath("", data[firstX][firstY], results, firstShift, 1);
 		
 		Result result = results.get(0);
 		for(Result r : results) {
@@ -141,9 +141,7 @@ public class Main {
 				}
 				DataItem next = data[node.next.get(i).x][node.next.get(i).y];
 				if (!(next.x == node.x && node.y == next.y)) {
-					int stepsX = next.x > node.x ? next.x - node.x : node.x - next.x;
-					int stepsY = next.y > node.y ? next.y - node.y : node.y - next.y;
-					DiscoverPath(result, next, results, node.shiftNext, step + stepsX + stepsY);
+					DiscoverPath(result, next, results, node.shiftNext, step + 1);
 				}
 			}			
 		}

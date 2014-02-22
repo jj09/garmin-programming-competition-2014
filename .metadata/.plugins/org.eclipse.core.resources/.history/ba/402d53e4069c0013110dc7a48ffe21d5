@@ -62,9 +62,6 @@ public class Main {
 	
 	public static DataItem[][] data = new DataItem[255][255];
 	
-	public static int maxX = 0;
-	public static int maxY = 0;
-	
 	public static void main(String[] args) throws IOException {
 				
 		//LinkedList<DataItem> data = new LinkedList<DataItem>();
@@ -84,9 +81,6 @@ public class Main {
 			int x = Integer.parseInt(array[0]);
 			int y = Integer.parseInt(array[1]);
 			
-			if(x>maxX) maxX = x;
-			if(y>maxY) maxY = y;
-			
 			if(data[x][y] == null) {
 				data[x][y] = new DataItem();
 			}
@@ -96,13 +90,7 @@ public class Main {
 			data[x][y].line = array[2];
 			
 			int xPrev = x + Integer.parseInt(array[3]);
-			int yPrev = y + Integer.parseInt(array[4]);
-			
-			data[x][y].shiftNext = Integer.parseInt(array[5]) % 26;
-			
-			if(xPrev>254 || yPrev>254 || xPrev<0 || yPrev<0) {
-				continue;
-			}
+			int yPrev = y + Integer.parseInt(array[4]);	
 			
 			if(data[xPrev][yPrev] == null) {
 				data[xPrev][yPrev] = new DataItem();
@@ -110,7 +98,7 @@ public class Main {
 			
 			data[xPrev][yPrev].next.add(new Pair(x,y));
 			
-			
+			data[x][y].shiftNext = Integer.parseInt(array[5]) % 26;
 		}
 		
 		br.close();
@@ -118,7 +106,7 @@ public class Main {
 		// traverse
 		LinkedList<Result> results = new LinkedList<Result>();
 		
-		DiscoverPath("", data[firstX][firstY], results, firstShift, 0);
+		DiscoverPath("", data[firstX][firstY], results, firstShift, 1);
 		
 		Result result = results.get(0);
 		for(Result r : results) {
@@ -131,21 +119,20 @@ public class Main {
 	
 	public static void DiscoverPath(String result, DataItem node, LinkedList<Result> results, int shift, int step) {
 		result += shift(node.line, shift);
-		if (node.shiftNext == 0) {
+		if (node.shiftNext == 0) {			
 			results.add(new Result(result, step));
 		} else {
+			int discoveredCount = 0;
 			for(int i=0; i<node.next.size(); ++i) {
-				if(node.next.get(i).x>maxX || node.next.get(i).y>maxY
-						|| node.next.get(i).x<0 || node.next.get(i).y<0) {
-					continue;
-				}
 				DataItem next = data[node.next.get(i).x][node.next.get(i).y];
 				if (!(next.x == node.x && node.y == next.y)) {
-					int stepsX = next.x > node.x ? next.x - node.x : node.x - next.x;
-					int stepsY = next.y > node.y ? next.y - node.y : node.y - next.y;
-					DiscoverPath(result, next, results, node.shiftNext, step + stepsX + stepsY);
+					++discoveredCount;
+					DiscoverPath(result, next, results, node.shiftNext, step + 1);
 				}
-			}			
+			}
+			if (discoveredCount == 0) {
+				results.add(new Result(result, step));
+			}
 		}
 	}
 }
