@@ -45,7 +45,7 @@ public class Main {
 		DataItem[][] data = new DataItem[255][255];
 		
 		// read file
-		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+		BufferedReader br = new BufferedReader(new FileReader("inputs/part2_input3.txt"));
 		int firstX = Integer.parseInt(br.readLine());
 		int firstY = Integer.parseInt(br.readLine());
 		int firstShift = Integer.parseInt(br.readLine()) % 26;

@@ -2,3 +2,7 @@
 INFO: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@3403a8f6
 2014-02-22 10:39:24,380 ERROR [Worker-0] - System.err - Feb 22, 2014 10:39:24 AM com.objectaid.uml.model.manage.DiagramManager getFactories
 INFO: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@10ad0b6
+2014-02-22 20:37:31,210 ERROR [Worker-5] - System.err - Feb 22, 2014 8:37:31 PM com.objectaid.uml.model.manage.DiagramManager getFactories
+INFO: com.objectaid.uml.diagramFactories[ucls]: com.objectaid.uml.cls.model.ClassDiagramFactory@525d982f
+2014-02-22 20:37:31,232 ERROR [Worker-5] - System.err - Feb 22, 2014 8:37:31 PM com.objectaid.uml.model.manage.DiagramManager getFactories
+INFO: com.objectaid.uml.diagramFactories[useq]: com.objectaid.uml.seq.model.SequenceDiagramFactory@b423e27
