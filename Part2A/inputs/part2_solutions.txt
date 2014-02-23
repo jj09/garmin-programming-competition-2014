@@ -1,0 +1,5 @@
+Geocaching with Garmin.
+A typical cache is a small waterproof container containing a logbook where the geocacher enters the date they found it and signs it with their established code name.
+Garmin offers a variety of lightweight rugged and waterproof GPS handhelds perfect for geocaching.  These units have long battery lives and space to hold coordinates for many geocache locations.
+With a Garmin chirp geocachers can now verify that a cache is nearby... access chirp's cargo of hints... see how many visitors have visited a cache and allow users to retrieve multi-caching coordinates.
+Geocaching  is an outdoor recreational activity in which the participants use a Global Positioning System (GPS) receiver or mobile device and other navigational techniques to hide and seek containers called geocaches or caches anywhere in the world.

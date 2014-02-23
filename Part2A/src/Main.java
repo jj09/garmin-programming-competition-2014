@@ -9,6 +9,7 @@ public class Main {
 		
 		public int xNext;
 		public int yNext;
+		public int shiftNextOrig;
 		public int shiftNext;
 	}
 	
@@ -44,7 +45,7 @@ public class Main {
 		DataItem[][] data = new DataItem[255][255];
 		
 		// read file
-		BufferedReader br = new BufferedReader(new FileReader("input.txt"));
+		BufferedReader br = new BufferedReader(new FileReader("inputs/part2_input3.txt"));
 		int firstX = Integer.parseInt(br.readLine());
 		int firstY = Integer.parseInt(br.readLine());
 		int firstShift = Integer.parseInt(br.readLine()) % 26;
@@ -63,33 +64,23 @@ public class Main {
 			data[x][y].line = array[2];
 			data[x][y].xNext = Integer.parseInt(array[3]);
 			data[x][y].yNext = Integer.parseInt(array[4]);			
+			data[x][y].shiftNextOrig = Integer.parseInt(array[5]);
 			data[x][y].shiftNext = Integer.parseInt(array[5]) % 26;
 		}
 		
 		br.close();
 		
-//		for(int i=0; i<255; ++i) {
-//			for(int j=0; j<255; ++j) {
-//				if(data[i][j]!=null) {
-//					System.out.println(i + "," 
-//				+ j + "," 
-//				+ data[i][j].line + "," 
-//				+ data[i][j].xNext+ ","
-//				+ data[i][j].yNext+ ","
-//				+ data[i][j].shiftNext);
-//				}
-//			}
-//		}
-		
 		// traverse
 		StringBuilder result = new StringBuilder();
 		DataItem current = data[firstX][firstY];
 		int currentShift = firstShift;
+		int currentShiftOrig = firstShift;
 		
 		//int nextShift = -1;
-		while(currentShift!=0) {
+		while(currentShiftOrig!=0) {
 			result.append(shift(current.line, currentShift));
 			currentShift = current.shiftNext;
+			currentShiftOrig = current.shiftNextOrig;
 			current = data[current.xNext][current.yNext];
 		}
 		

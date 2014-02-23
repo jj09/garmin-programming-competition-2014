@@ -15,7 +15,7 @@ public class Main {
 		
 	}
 	
-	public static class DataItem {
+	public static class DataItem implements Comparable<DataItem> {
 		public String line;		
 		
 		public int x;
@@ -24,6 +24,14 @@ public class Main {
 		public LinkedList<Pair> next = new LinkedList<Pair>();
 		
 		public int shiftNext;
+		public int shiftNextOrig;
+
+		@Override
+		public int compareTo(DataItem o) {
+			//DataItem di = (DataItem)o;
+			if (o.x == x && o.y == y) return 0;
+			else return 1;
+		}
 	}
 	
 	public static class Result {
@@ -98,6 +106,7 @@ public class Main {
 			int xPrev = x + Integer.parseInt(array[3]);
 			int yPrev = y + Integer.parseInt(array[4]);
 			
+			data[x][y].shiftNextOrig = Integer.parseInt(array[5]);
 			data[x][y].shiftNext = Integer.parseInt(array[5]) % 26;
 			
 			if(xPrev>254 || yPrev>254 || xPrev<0 || yPrev<0) {
@@ -118,7 +127,9 @@ public class Main {
 		// traverse
 		LinkedList<Result> results = new LinkedList<Result>();
 		
-		DiscoverPath("", data[firstX][firstY], results, firstShift, 0);
+		Set<DataItem> visited = new TreeSet<DataItem>();
+		
+		DiscoverPath("", data[firstX][firstY], results, firstShift, 0, visited);
 		
 		Result result = results.get(0);
 		for(Result r : results) {
@@ -129,9 +140,9 @@ public class Main {
 		System.out.println(result.text);
 	}
 	
-	public static void DiscoverPath(String result, DataItem node, LinkedList<Result> results, int shift, int step) {
+	public static void DiscoverPath(String result, DataItem node, LinkedList<Result> results, int shift, int step, Set<DataItem> visited) {
 		result += shift(node.line, shift);
-		if (node.shiftNext == 0) {
+		if (node.shiftNextOrig == 0) {
 			results.add(new Result(result, step));
 		} else {
 			for(int i=0; i<node.next.size(); ++i) {
@@ -140,12 +151,17 @@ public class Main {
 					continue;
 				}
 				DataItem next = data[node.next.get(i).x][node.next.get(i).y];
-				if (!(next.x == node.x && node.y == next.y)) {
+				if (!(next.x == node.x && node.y == next.y) && !visited.contains(node)) {
 					int stepsX = next.x > node.x ? next.x - node.x : node.x - next.x;
 					int stepsY = next.y > node.y ? next.y - node.y : node.y - next.y;
-					DiscoverPath(result, next, results, node.shiftNext, step + stepsX + stepsY);
+					Set<DataItem> s = new TreeSet<DataItem>();
+					for(DataItem di : visited) {
+						s.add(di);
+					}
+					s.add(node);
+					DiscoverPath(result, next, results, node.shiftNext, step + stepsX + stepsY, s);
 				}
-			}			
+			}
 		}
 	}
 }
